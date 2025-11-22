@@ -4,6 +4,9 @@ from config import OWNER_ID
 from dotenv import load_dotenv
 from pyrogram import Client
 import config
+import logging
+
+LOGGER = logging.getLogger(__name__)
 
 
 class Userbot(Client):
@@ -16,33 +19,30 @@ class Userbot(Client):
             no_updates=False,
             plugins=dict(root="ISTKHAR_CHATBOT.idchatbot"),
         )
-        
 
     async def start(self):
-        print(f"Starting Id chatbot...")
+        print("Starting Id chatbot...")
 
         if config.STRING1:
             await self.one.start()
             try:
-                await self.one.join_chat("THUNDERDEVS")
-                await self.one.join_chat("ll_ISTKHAR_BABY")
-                await self.one.join_chat("THUNDER_SUPPROT")
-                await self.one.join_chat("THUNDER_SUPPROT")
+                await self.one.join_chat("KITTUU_UPDATES")
+                await self.one.join_chat("ll_ABOUT_TOXICC_PAPA_ll")
+                await self.one.join_chat("FREE_THEMES_TELEGRAM")  # If group exists
+            except Exception as e:
+                print(f"Join chat error: {e}")
 
-            except:
-                pass
+            # User information
             self.one.id = self.one.me.id
             self.one.name = self.one.me.mention
             self.one.username = self.one.me.username
-     
+
             print(f"Id-Chatbot Started as {self.one.me.first_name}")
-            
-        
 
     async def stop(self):
-        LOGGER(__name__).info(f"Stopping Id-Chatbot...")
+        LOGGER.info("Stopping Id-Chatbot...")
         try:
             if config.STRING1:
                 await self.one.stop()
-        except:
-            pass
+        except Exception as e:
+            LOGGER.error(f"Stop error: {e}")
